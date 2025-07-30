@@ -44,5 +44,12 @@ public class TaskController {
     public void deleteTask(@PathVariable Long id) {
         taskRepository.deleteById(id);
     }
+
+    @PutMapping("/{id}/toggle")
+    public Task toggleComplete(@PathVariable Long id) {
+        Task task = taskRepository.findById(id).orElseThrow();
+        task.setCompleted(!task.isCompleted());
+        return taskRepository.save(task);
+    }
 }
 
